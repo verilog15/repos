@@ -1,0 +1,57 @@
+<script lang="ts">
+  import type { Readable } from "svelte/store";
+
+  import { settings } from "../../global-store/settings";
+  import type { Task, WithTime } from "../../task-types";
+  import { useStatusBarWidget } from "../hooks/use-status-bar-widget";
+
+  export let onClick: () => Promise<void>;
+  export let tasksForToday: Readable<Array<WithTime<Task>>>;
+  export let errorStore: Readable<Error | undefined>;
+
+  const statusBarProps = useStatusBarWidget({ tasksForToday });
+
+  $: ({ showNow, showNext, progressIndicator, timestampFormat } = $settings);
+  $: ({ current, next } = $statusBarProps);
+</script>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="root" onclick={onClick}>
+  {#if $errorStore}
+    😵 Error in Day Planner (click to see)
+  {:else if !current && !next}
+    <span class="status-bar-item-segment">All done</span>
+  {:else}
+    {#if showNow && current}
+      <span class="status-bar-item-segment"
+        >Now: {current.text} (-{current.timeLeft}, till {current.endTime.format(
+          timestampFormat,
+        )})</span
+      >
+      {#if progressIndicator === "pie"}
+        <div
+          class="status-bar-item-segment progress-pie day-planner"
+          data-value={current.percentageComplete}
+        ></div>
+      {:else if progressIndicator === "bar"}
+        <div class="status-bar-item-segment day-planner-progress-bar">
+          <div
+            style="width: {current.percentageComplete}%;"
+            class="day-planner-progress-value"
+          ></div>
+        </div>
+      {/if}
+    {/if}
+    {#if showNext && next}
+      <span class="status-bar-item-segment"
+        >Next: {next.text} (in {next.timeToNext})</span
+      >
+    {/if}
+  {/if}
+</div>
+
+<style>
+  .root {
+    display: contents;
+  }
+</style>
