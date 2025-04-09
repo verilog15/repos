@@ -1,0 +1,254 @@
+en:
+  vagrant_parallels:
+    parallels:
+      network_adapter: |-
+        Adapter %{adapter}: %{type}%{extra}
+#-------------------------------------------------------------------------------
+# Translations for exception classes
+#-------------------------------------------------------------------------------
+    errors:
+      box_id_not_found: |-
+        Parallels provider couldn't fetch the box image ID. This is usually because
+        the "config.pvs" file is corrupted or doesn't exist. Please remove the box,
+        re-add it, and try again.
+
+        Box: "%{name}"
+        Box VM config: "%{config}"
+
+      box_image_not_found: |-
+        Parallels VM image (*.pvm or *.macvm) could not be found in the directory of
+        '%{name}' box. This is usually because the image has been removed manually.
+        Please remove the box, re-add it, and try again.
+      dhcp_leases_file_not_accessible: |-
+        Parallels DHCP leases file is not accessible. The Parallels provider
+        uses it to detect an IP address of virtual machine. This file must be
+        readable for the user that is running Vagrant.
+
+        Parallels DHCP leases file: %{leases_file}
+      execution_error: |-
+        There was an error while command execution. The command and stderr is shown below.
+
+        Command: %{command}
+
+        Stderr: %{stderr}
+
+      json_parse_error: |-
+        Failed to parse the JSON string! Please report this as a bug of Parallels
+        provider: https://github.com/Parallels/vagrant-parallels/issues
+        JSON string is shown below:
+
+        %{data}
+
+      external_disk_not_found: |-
+        External disk image could not be found. In case of linked clone it is
+        usually because the parent VM image was removed. It means that the virtual
+        disk is inconsistent, please remove it from the VM configuration.
+
+        Disk image path: %{path}
+      linux_prl_fs_invalid_options: |-
+        Failed to mount folders in Linux guest. You've specified mount options
+        which are not supported by "prl_fs" file system.
+
+        Invalid mount options: %{options}
+      network_collision: |-
+        The specified host network collides with a non-hostonly network!
+        This will cause your specified IP to be inaccessible. Please change
+        the IP or name of your host only network so that it no longer matches that of
+        a bridged or non-hostonly network.
+
+        Host-only Network Address: '%{hostonly_netaddr}'
+        Bridged Network '%{bridge_interface}': '%{bridge_netaddr}'
+      network_invalid_address: |-
+        Network settings specified in your Vagrantfile are invalid:
+
+        Network settings: %{options}
+        Error: %{error}
+      mac_os_x_required: |-
+        Parallels provider works only on macOS (Mac OS X) systems.
+      parallels_install_incomplete: |-
+        Parallels Desktop is complaining that the installation is incomplete.
+        Try to reinstall Parallels Desktop or contact Parallels support.
+      parallels_invalid_version: |-
+        Vagrant could not fetch Parallels Desktop version from output:
+          %{output}
+
+        This is an internal error that should be reported as a bug.
+      parallels_mount_failed: |-
+        Vagrant was unable to mount Parallels Desktop shared folders. This is usually
+        because the filesystem "prl_fs" is not available OR you are passing 
+        unsupported mount options to prl_fsd daemon for supported options please refer
+        to the prl_fsd --help in VM. 
+        "prl_fs"/"prl_fsd" are available via the Parallels Tools and kernel module.
+        Please verify that these guest tools are properly installed in the
+        guest. This is not a bug in Vagrant and is usually caused by a faulty
+        Vagrant box. For context, the command attempted was:
+
+        %{command}
+
+        The error output from the command was:
+
+        %{output}
+      parallels_no_room_for_high_level_network: |-
+        There is no available slots on the Parallels Desktop VM for the configured
+        high-level network interfaces. "private_network" and "public_network"
+        network configurations consume a single network adapter slot on the
+        Parallels Desktop VM. Parallels Desktop limits the number of slots to 16, and it
+        appears that every slot is in use. Please lower the number of used
+        network adapters.
+      parallels_not_detected: |-
+        Vagrant could not detect Parallels Desktop Pro! Make sure it is properly installed.
+        Vagrant uses the `prlctl` binary that only ships with Pro and Business
+        editions of Parallels Desktop. If the one is installed, please make sure
+        that the `prlctl` binary is available on the PATH environment variable.
+      parallels_tools_iso_not_found: |-
+        Parallels Tools ISO file does not exist. The Parallels provider uses it
+        to install or update Parallels Tools in the guest machine. Try to
+        reinstall Parallels Desktop.
+
+        Expected ISO path: "%{iso_path}"
+      parallels_vm_option_not_found: |-
+        Could not find a required option of Parallels Desktop virtual machine:
+          %{vm_option}
+        This is an internal error that should be reported as a bug.
+      parallels_unsupported_edition: |-
+        Vagrant has detected that you have an edition of Parallels Desktop for Mac
+        installed that is not supported. Vagrant Parallels provider is compatible
+        only with Pro and Business editions of Parallels Desktop. Other editions
+        do not have command line functionality and can not be used with Vagrant.
+
+        Please upgrade your installation: https://parallels.com/desktop
+      parallels_unsupported_version: |-
+        Vagrant has detected that you have a version of Parallels Desktop for Mac
+        installed that is not supported. Vagrant Parallels provider is compatible
+        only with Parallels Desktop 11 or later.
+        Please upgrade your installation: https://parallels.com/desktop
+
+        Note: Starting since Parallels Desktop 11 for Mac, Vagrant Parallels
+        provider can be only used with Pro or Business edition of Parallels
+        Desktop for Mac. Please, be aware while choosing the edition to upgrade to.
+      snapshot_id_not_detected: |-
+        ID of the newly created shapshod could not be detected. This is an
+        internal error that users should never see. Please report a bug to
+        Parallels provider.
+
+        stdout: %{stdout}
+      snapshot_not_found: |-
+        The 'linked_clone_snapshot' specified could not be found. Please double
+        check and try again.
+
+         Snapshot ID: %{snapshot}
+      shared_interface_not_found: |-
+        Shared network interface was not found in your virtual machine configuration.
+        It is required for communications with VM and port forwarding. Please
+        check network configuration in your Vagrantfile.
+      shared_interface_disconnected: |-
+        Your Mac host is not connected to Shared network. It is required for
+        communications with VM and port forwarding. Please enable this option in GUI:
+
+        Parallels Desktop -> Preferences -> Network -> Shared -> Connect Mac to this network
+
+      vm_clone_failure: |-
+        The VM cloning failed! Please ensure that the box you're using is not
+        corrupted and try again.
+      vm_name_exists: |-
+        Parallels Desktop virtual machine with the name '%{name}' already exists.
+        Please use another name or delete the machine with the existing
+        name, and try again.
+
+#-------------------------------------------------------------------------------
+# Translations for config validation errors
+#-------------------------------------------------------------------------------
+    config:
+      id_in_pre_import: |-
+        The ':id' parameter is not available in "pre-import" customizations.
+      invalid_event: |-
+        %{event} is not a valid event for customization. Valid events
+        are: %{valid_events}
+      deprecate_power_consumption: |-
+        Setting "optimize_power_consumption" has been deprecated in the Parallels
+        provider and will be removed in the future releases. Power consumption
+        is enabled by default. If you want to keep it enabled, then just remove
+        this setting from your Vagrantfile. Otherwise, please replace it with
+        this block in order to disable the power consumption:
+
+          config.vm.provider "parallels" do |prl|
+            prl.customize ["set", :id, "--longer-battery-life", "off"]
+          end
+
+#-------------------------------------------------------------------------------
+# Translations for commands. e.g. `vagrant x`
+#-------------------------------------------------------------------------------
+    commands:
+      common:
+        vm_already_running: |-
+          Parallels Desktop VM is already running.
+      status:
+        inaccessible: |-
+          The VM is inaccessible! This is a rare case which means that Parallels
+          Desktop can't find your VM configuration. This usually happens when deleting
+          the VM via Parallels Desktop GUI, moving to a new computer, etc.
+          Please consult Vagrant Parallels provider for how to handle this issue.
+        not_created: |-
+          The environment has not yet been created. Run `vagrant up` to
+          create the environment. If a machine is not created, only the
+          default provider will be shown. So if a provider is not listed,
+          then the machine is not created for that environment.
+        paused: |-
+          The VM is paused. This VM may have been paused via Parallels Desktop
+          GUI or the `prlctl` command line interface. To unpause, please
+          use the Parallels Desktop GUI and/or `prlctl` command line interface
+          so that vagrant would be able to control the VM again.
+        suspended: |-
+          The VM is suspended. To resume this VM you can run `vagrant resume`
+          or `vagrant up` to restart it again, so that vagrant would be able
+          to control the VM again.
+        stopped: |-
+          The VM is stopped. To start the VM, simply run `vagrant up`
+        running: |-
+          The VM is running. To stop this VM, you can run `vagrant halt` to
+          shut it down forcefully, or you can run `vagrant suspend` to simply
+          suspend the virtual machine. In either case, to restart it again,
+          simply run `vagrant up`.
+#-------------------------------------------------------------------------------
+# Translations for Vagrant middleware actions
+#-------------------------------------------------------------------------------
+    actions:
+      vm:
+        box:
+          register: Registering VM image from the base box '%{name}'...
+          unregister: Unregistering the box VM image...
+        check_shared_interface:
+          connecting: Connecting host to Shared network...
+        clone:
+          full: Creating new virtual machine as a full clone of the box image...
+          linked: Creating new virtual machine as a linked clone of the box image...
+        handle_guest_tools:
+          cant_install: |-
+            Vagrant doesn't support installing Parallels Tools for the guest OS
+            running in the machine. Vagrant attempt to continue, assuming that
+            Parallels Tools will be installed later.
+          checking: |-
+            Checking for Parallels Tools installed on the VM...
+          installing: |-
+            Installing the proper version of Parallels Tools. This may take a few minutes...
+          not_detected: |-
+            Parallels Tools were not detected on this VM! They are required
+            for shared folders, time sync and more. If shared folders are not
+            working on this machine, please install Parallels Tools within the
+            virtual machine and reload your VM.
+          rebooting: |-
+            Parallels Tools have been installed. Rebooting the VM...
+          outdated: |-
+            Parallels Tools installed on this VM are outdated! In most cases
+            this is fine but in rare cases it can cause things such as shared
+            folders to not work properly. If you see shared folder errors,
+            please update Parallels Tools within the virtual machine and
+            reload your VM.
+        export:
+          compacting: Compacting exported HDDs...
+          copying_linked_disks: Copying linked disks...
+        forward_ports:
+          forwarding_entry: |-
+            %{guest_port} => %{host_port}
+        sane_defaults:
+          setting: Setting the default configuration for VM...
