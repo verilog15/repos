@@ -1,0 +1,3 @@
+Sphinx==7.3.7
+piccolo-theme==0.24.0
+livereload==2.6.3
